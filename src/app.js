@@ -35,8 +35,11 @@ app.use((req, res, next) => {
 });
 
 // Configure routes
+const indexRouter = require('./routes/index');
 const healthRouter = require('./routes/health');
-app.use('/', healthRouter);
+
+app.use('/', indexRouter);
+app.use('/health', healthRouter);
 
 // Error handling middleware
 app.use((err, req, res, next) => {

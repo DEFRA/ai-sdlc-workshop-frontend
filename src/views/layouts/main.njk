@@ -13,19 +13,19 @@
   <link href="/govuk/govuk-frontend.min.css" rel="stylesheet">
   <link href="/assets/css/main.css" rel="stylesheet">
 
-  <title>{{ pageTitle }} - GOV.UK Workshop Frontend</title>
+  <title>{{ pageTitle }} - GOV.UK</title>
 {% endblock %}
 
 {% block header %}
   {{ govukHeader({
     homepageUrl: "/",
-    serviceName: "Workshop Frontend",
+    serviceName: "Ministry of Unnecessary Paperwork",
     serviceUrl: "/"
   }) }}
 {% endblock %}
 
 {% block beforeContent %}
-  {# Phase banner and back link removed #}
+  {% block phaseBanner %}{% endblock %}
 {% endblock %}
 
 {% block content %}
@@ -42,17 +42,19 @@
       items: [
         {
           href: "#",
-          text: "Help"
+          text: "Manage your prototype"
         },
         {
           href: "#",
-          text: "Privacy"
-        },
-        {
-          href: "#",
-          text: "Cookies"
+          text: "Clear data"
         }
       ]
+    },
+    contentLicence: {
+      html: 'All content is available under the <a class="govuk-footer__link" href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/">Open Government Licence v3.0</a>, except where otherwise stated'
+    },
+    copyright: {
+      text: "© Crown copyright"
     }
   }) }}
 {% endblock %}
