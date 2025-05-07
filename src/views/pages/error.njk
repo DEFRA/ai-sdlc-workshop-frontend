@@ -1,0 +1,18 @@
+{% extends "layouts/main.njk" %}
+
+{% block mainContent %}
+  <h1 class="govuk-heading-xl">Error</h1>
+  <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1" data-module="govuk-error-summary">
+    <h2 class="govuk-error-summary__title" id="error-summary-title">
+      There is a problem
+    </h2>
+    <div class="govuk-error-summary__body">
+      <p>
+        {{ error }}
+      </p>
+      <p>
+        <a href="/" class="govuk-button">Go back to home page</a>
+      </p>
+    </div>
+  </div>
+{% endblock %} 

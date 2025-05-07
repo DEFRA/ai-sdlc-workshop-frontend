@@ -1,0 +1,24 @@
+/* Custom styles for GOV.UK Frontend application */
+
+/* Add more padding to the main content area */
+.govuk-main-wrapper {
+  padding-top: 40px;
+  padding-bottom: 60px;
+}
+
+/* Style for inline form elements */
+.govuk-\!-display-inline {
+  display: inline-block;
+  margin-bottom: 0;
+}
+
+/* Add some margin between table elements */
+.govuk-table__cell {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+/* Page title styles */
+.app-page-title {
+  margin-bottom: 30px;
+} 

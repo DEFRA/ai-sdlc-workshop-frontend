@@ -1,0 +1,23 @@
+{% extends "layouts/main.njk" %}
+
+{% block mainContent %}
+  <h1 class="govuk-heading-xl">API Health</h1>
+  
+  <div class="govuk-panel govuk-panel--{% if health.status == 'ok' %}confirmation{% else %}error{% endif %}">
+    <h2 class="govuk-panel__title">
+      {{ health.status }}
+    </h2>
+  </div>
+
+  <h2 class="govuk-heading-m">Database</h2>
+  <dl class="govuk-summary-list">
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key">Status</dt>
+      <dd class="govuk-summary-list__value">{{ health.database.status }}</dd>
+    </div>
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key">Response Time</dt>
+      <dd class="govuk-summary-list__value">{{ health.database.responseTime }}ms</dd>
+    </div>
+  </dl>
+{% endblock %} 
