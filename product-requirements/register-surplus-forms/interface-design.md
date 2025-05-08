@@ -6,11 +6,10 @@ The Register Surplus Forms service follows this user journey:
 
 1. **Start page** (`index.html`) → 
 2. **Form selection** (`form-details.html`) → 
-3. **Upload form** (`form-upload.html`) → 
-4. **Pen color** (`digital-product.html`) → 
-5. **Guidance question** (`form-guidance.html` or `form-guidance-validation.html` with validation) → 
-6. **Check answers** (`check-answers.html`) → 
-7. **Confirmation** (`confirmation.html`)
+3. **Pen color** (`digital-product.html`) → 
+4. **Guidance question** (`form-guidance.html` or `form-guidance-validation.html` with validation) → 
+5. **Check answers** (`check-answers.html`) → 
+6. **Confirmation** (`confirmation.html`)
 
 ## Data Flow
 
@@ -56,12 +55,12 @@ All this data is displayed on the check answers page (`check-answers.html`) and 
 - **Page type:** Question page
 - **H1:** "Which form are you applying to apply for?"
 - **Component:** Radio buttons with conditional reveal
-- **Radio options:**
+- **Radio options with conditional reveal for 'Other':**
   - "Form A-001: Request to Begin the Request Process"
   - "Form B-19F: Retroactive Pre-Approval Form"
   - "Form C-XYZ: Confirmation of Previous Confirmations"
   - "Form D-Null: Deregistration of Redundant Documents"
-  - "Other (please specify)" - with conditional text input field labeled "Form name"
+  - "Other (please specify)" - with conditional reveal text input field labeled "Form name"
 - **Button:** "Continue"
 - **Validation:** Error summary and inline errors if no option is selected
 - **Data captured:** 
@@ -76,23 +75,7 @@ All this data is displayed on the check answers page (`check-answers.html`) and 
 - Button
 - Error summary (when validation fails)
 
-### 3. Form Upload Page (form-upload.html)
-
-- **Page type:** Question page
-- **H1:** "Please upload the pdf version of the form"
-- **Label:** "Please upload Form U-812 (real or imagined)"
-- **Hint text:** "The file must be a PDF and no larger than 10MB"
-- **Component:** File upload
-- **Button:** "Continue"
-- **Data captured:** `formUpload` (file information)
-
-**Components:**
-- Phase banner (Alpha)
-- Back link
-- File upload
-- Button
-
-### 4. Pen Color Page (digital-product.html)
+### 3. Pen Color Page (digital-product.html)
 
 - **Page type:** Question page
 - **H1:** "What colour pen did you use to not fill in the form?"
@@ -112,7 +95,7 @@ All this data is displayed on the check answers page (`check-answers.html`) and 
 - Radios (standard)
 - Button
 
-### 5. Guidance Question Page (form-guidance.html / form-guidance-validation.html)
+### 4. Guidance Question Page (form-guidance.html / form-guidance-validation.html)
 
 - **Page type:** Question page
 - **H1:** "Did you read the 147-page guidance?"
@@ -132,7 +115,7 @@ All this data is displayed on the check answers page (`check-answers.html`) and 
 - Button
 - Error summary (when validation fails - in validation version only)
 
-### 6. Check Answers Page (check-answers.html)
+### 5. Check Answers Page (check-answers.html)
 
 - **Page type:** Summary page
 - **H1:** "Check your answers before submitting your form"
@@ -158,7 +141,7 @@ All this data is displayed on the check answers page (`check-answers.html`) and 
 - Typography (headings, body text)
 - Button
 
-### 7. Confirmation Page (confirmation.html)
+### 6. Confirmation Page (confirmation.html)
 
 - **Page type:** Confirmation page
 - **Component:** Confirmation panel
