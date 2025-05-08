@@ -4,7 +4,7 @@ const router = express.Router();
 
 router.get('/', async (req, res) => {
   try {
-    res.render('pages/home', {
+    res.render('pages/index', {
       pageTitle: 'Home'
     });
   } catch (error) {
