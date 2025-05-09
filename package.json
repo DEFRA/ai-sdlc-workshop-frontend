@@ -4,7 +4,11 @@
   "description": "A simple application that uses GOV.UK Frontend with Nunjucks templates",
   "main": "src/app.js",
   "scripts": {
-    "dev": "nodemon src/app.js"
+    "dev": "nodemon src/app.js",
+    "test": "playwright test",
+    "test:ui": "npx playwright test --ui",
+    "test:headed": "playwright test --headed",
+    "test:debug": "playwright test --debug"
   },
   "dependencies": {
     "express": "^4.18.2",
@@ -15,6 +19,7 @@
     "winston": "^3.17.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.40.1",
     "nodemon": "^3.1.10"
   }
 }
