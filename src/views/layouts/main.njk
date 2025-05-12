@@ -60,8 +60,13 @@
 {% endblock %}
 
 {% block bodyEnd %}
-  <script src="/govuk/govuk-frontend.min.js"></script>
-  <script>
-    window.GOVUKFrontend.initAll()
+  <script type="module">
+    import { initAll } from '/govuk/govuk-frontend.min.js';
+    initAll();
+  </script>
+
+  <script nomodule src="/govuk/govuk-frontend-ie8.min.js"></script>
+  <script nomodule>
+    window.GOVUKFrontend.initAll();
   </script>
 {% endblock %} 

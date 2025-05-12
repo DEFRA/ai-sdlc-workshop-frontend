@@ -17,11 +17,11 @@ alwaysApply: false
 ```
 src/views/
 ├── layouts/
-│   └── default.njk
+│   └── main.njk
 ├── components/
 │   └── common/
 ├── pages/
-│   └── [feature]/
+│   └── [page].njk
 └── macros/
     └── [component].njk
 ```
@@ -38,7 +38,7 @@ src/views/
 ## Example Template Structure
 
 ```njk
-{% extends "layouts/default.njk" %}
+{% extends "layouts/main.njk" %}
 
 {% block content %}
   {% from "govuk/components/header/macro.njk" import govukHeader %}
