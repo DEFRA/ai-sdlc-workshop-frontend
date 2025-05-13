@@ -1,0 +1,13 @@
+{
+    "github.copilot.advanced": {
+        "rules": {
+            "*": [
+                { "path": ".vscode/rules/express-routes.md" },
+                { "path": ".vscode/rules/govuk-frontend.md" },
+                { "path": ".vscode/rules/nunjucks-templates.md"},
+                { "path": ".vscode/rules/project-standards.md"},
+                { "path": ".vscode/rules/project-structure.md"}
+            ],
+        }
+    }
+}

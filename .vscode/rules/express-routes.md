@@ -1,0 +1,40 @@
+# Express.js Route Standards
+
+## Route Organization
+
+1. Each route file should handle a specific feature or resource
+2. Use the Express Router for all route definitions
+3. Keep route handlers focused and single-responsibility
+4. Use middleware for cross-cutting concerns
+
+## Route Handler Structure
+
+```javascript
+const express = require('express');
+const router = express.Router();
+const logger = require('../logger');
+
+// GET route example
+router.get('/path', async (req, res) => {
+  try {
+    // Route handler logic
+    res.render('template', { data });
+  } catch (error) {
+    logger.error('Error in route handler:', error);
+    res.status(500).render('error');
+  }
+});
+
+module.exports = router;
+```
+
+## Best Practices
+
+1. Always use async/await for asynchronous operations
+2. Implement proper error handling in all route handlers
+3. Use the logger for all logging needs
+4. Keep route handlers thin, move business logic to separate services
+5. Use appropriate HTTP methods (GET, POST, PUT, DELETE)
+6. Implement proper input validation
+7. Use middleware for authentication and authorization
+8. Follow RESTful principles for API endpoints
