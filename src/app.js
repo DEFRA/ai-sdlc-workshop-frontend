@@ -47,9 +47,5 @@ app.use((err, req, res, next) => {
   res.status(500).render('pages/error', { error: 'Internal Server Error', pageTitle: 'Error' });
 });
 
-// Start server
-app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
-});
 
 module.exports = app; 
