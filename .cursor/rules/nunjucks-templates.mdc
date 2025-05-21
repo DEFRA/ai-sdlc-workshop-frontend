@@ -1,7 +1,7 @@
 ---
 description: 
-globs: *.njk
-alwaysApply: false
+globs: 
+alwaysApply: true
 ---
 # Nunjucks Template Standards
 
@@ -28,12 +28,75 @@ src/views/
 
 ## Best Practices
 
+### General Guidelines
 1. Use GOV.UK Frontend components and macros
 2. Keep templates DRY (Don't Repeat Yourself)
 3. Use meaningful variable names in templates
 4. Implement proper error handling in templates
 5. Use template inheritance effectively
 6. Keep business logic out of templates
+
+### Syntax and Logic
+7. NEVER embed Nunjucks template logic inside HTML strings - this causes syntax errors
+8. DO NOT use JavaScript arrow functions or other ES6 features in Nunjucks templates
+9. Keep template logic minimal - complex data manipulation should happen in route handlers
+10. Use standard Nunjucks filters instead of complex chaining
+
+### Component Handling
+11. Format data for components in the Express route handlers, not in templates
+12. Use the `{% set %}...{% endset %}` pattern for complex HTML sections
+13. Always use GOV.UK Frontend macros for form inputs, even in conditional reveals
+
+## Conditional Content Patterns
+
+1. For complex conditional logic, use the `{% set %}` block pattern:
+
+```njk
+{% set conditionalContent %}
+  {% if condition %}
+    {{ govukComponent({ ... }) }}
+  {% else %}
+    {{ govukOtherComponent({ ... }) }}
+  {% endif %}
+{% endset %}
+```
+
+2. For conditional reveals in radio or checkbox components:
+
+```njk
+{% set otherHtml %}
+  {{ govukInput({
+    id: "other-field",
+    name: "other-field",
+    label: {
+      text: "Please specify"
+    },
+    value: formData.otherField,
+    errorMessage: errors.otherField
+  }) }}
+{% endset %}
+
+{{ govukRadios({
+  items: [
+    { text: "Option 1", value: "option-1" },
+    { text: "Option 2", value: "option-2" },
+    {
+      text: "Other",
+      value: "other",
+      conditional: {
+        html: otherHtml
+      }
+    }
+  ]
+}) }}
+```
+
+## Common Errors to Avoid
+
+1. Mixing string concatenation with Nunjucks expressions (e.g., `'<div>' + {% if condition %}...{% endif %} + '</div>'`)
+2. Using JavaScript logical operators instead of Nunjucks syntax (e.g., using `&&` or `||` instead of `and` or `or`)
+3. Using complex inline expressions when a `{% set %}` block would be clearer
+4. Manually constructing HTML for components instead of using GOV.UK Frontend macros
 
 ## Example Template Structure
 
