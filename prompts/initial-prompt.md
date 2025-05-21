@@ -21,7 +21,7 @@ Please analyze these documents and implement all features and stories as follows
    - New components/modules to be created
 
 4. For the implementation:
-   - Follow the cursor rules
+   - Follow the frontend cursor rules
    - Follow existing code conventions and patterns
    - Implement the UI design and content as per the interface design
    - Remove the existing indexRouter to ensure the new functionality takes precedence
@@ -33,5 +33,5 @@ Please analyze these documents and implement all features and stories as follows
 
 Constraints:
 - Maintain consistency with existing codebase
-- Follow the cursor rules
+- Follow the frontend cursor rules
 - Do not add any unit tests at this time

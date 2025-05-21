@@ -1,7 +1,7 @@
 ---
-description: 
+description: frontend
 globs: 
-alwaysApply: true
+alwaysApply: false
 ---
 # Nunjucks Template Standards
 
@@ -41,6 +41,33 @@ src/views/
 8. DO NOT use JavaScript arrow functions or other ES6 features in Nunjucks templates
 9. Keep template logic minimal - complex data manipulation should happen in route handlers
 10. Use standard Nunjucks filters instead of complex chaining
+
+### Nunjucks vs JavaScript Operators
+- Use `==` not `===` for equality checks in Nunjucks
+- Use `and`/`or` not `&&`/`||` for logical operations
+- Avoid ternary expressions in Nunjucks templates (use `{% if %}` blocks instead)
+- When in doubt, move logic to route handlers and keep templates simple
+
+### Data Formatting Rule
+ALWAYS prepare display values in route handlers before sending to templates. 
+If you need conditionals to determine what to display:
+- Bad: Complex conditionals in the template
+- Good: Format in the route handler, send simple display values to the template
+
+Example:
+```javascript
+// BAD: Complex logic in template
+// In template: {{ user.type == "admin" and user.permissions ? "Administrator" : "User" }}
+
+// GOOD: Logic in route handler
+// In route handler:
+if (user.type === 'admin' && user.permissions) {
+  user.displayRole = 'Administrator';
+} else {
+  user.displayRole = 'User';
+}
+// In template: {{ user.displayRole }}
+```
 
 ### Component Handling
 11. Format data for components in the Express route handlers, not in templates
@@ -97,6 +124,66 @@ src/views/
 2. Using JavaScript logical operators instead of Nunjucks syntax (e.g., using `&&` or `||` instead of `and` or `or`)
 3. Using complex inline expressions when a `{% set %}` block would be clearer
 4. Manually constructing HTML for components instead of using GOV.UK Frontend macros
+
+## Common Pitfalls
+
+### Mixing JavaScript and Nunjucks syntax
+BAD:
+```njk
+{{ user.type === 'admin' and user.permissions ? 'Administrator' : 'User' }}
+```
+
+GOOD (in route handler):
+```javascript
+// In route handler
+if (user.type === 'admin' && user.permissions) {
+  user.displayRole = 'Administrator';
+} else {
+  user.displayRole = 'User';
+}
+```
+
+GOOD (in template):
+```njk
+{{ user.displayRole }}
+```
+
+### Handling conditional display in summary lists or tables
+BAD:
+```njk
+{{ govukSummaryList({
+  rows: [
+    {
+      key: { text: "Role" },
+      value: { 
+        text: user.type == "admin" and user.permissions ? "Administrator" : "User"
+      }
+    }
+  ]
+}) }}
+```
+
+GOOD:
+```javascript
+// In route handler
+const userData = {...user};
+if (userData.type === 'admin' && userData.permissions) {
+  userData.roleDisplay = 'Administrator';
+} else {
+  userData.roleDisplay = 'User';
+}
+```
+
+```njk
+{{ govukSummaryList({
+  rows: [
+    {
+      key: { text: "Role" },
+      value: { text: user.roleDisplay }
+    }
+  ]
+}) }}
+```
 
 ## Example Template Structure
 

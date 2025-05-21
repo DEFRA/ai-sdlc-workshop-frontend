@@ -1,7 +1,7 @@
 ---
-description: 
+description: frontend
 globs: 
-alwaysApply: true
+alwaysApply: false
 ---
 # GOV.UK Frontend Standards
 
