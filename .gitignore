@@ -26,8 +26,4 @@ build/
 
 # OS files
 .DS_Store
-Thumbs.db 
-
-# Playwright
-playwright-report/
-test-results/
+Thumbs.db
