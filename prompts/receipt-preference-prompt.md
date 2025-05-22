@@ -1,13 +1,11 @@
-# CONTEXT  
+# CONTEXT
 There is an existing GOV.UK form flow for users to *Register surplus forms*.  
 
 We are making two changes:  
 1. Adding a new page to the flow.  
 2. Updating the `Check your answers` page by adding a row to the summary list.  
 
-Two screenshots are provided:  
-- One for the new `receipt-preference` page  
-- One for the updated `Check your answers` page  
+A screenshots is provided for the updated `Check your answers` page.
 
 The backend API has also been updated to include three new fields on the `POST` and `GET` endpoints:
 
@@ -28,15 +26,11 @@ mobile_phone_number: {
 }
 ```
 
----
-
-# ANALYSIS PHASE  
+# ANALYSIS PHASE
 Review the existing codebase to identify the patterns and files that need updating.  
 Use the provided screenshots as a reference for layout and content.
 
----
-
-# IMPLEMENTATION PHASE  
+# IMPLEMENTATION PHASE
 
 ## Task 1: Add new `receipt-preference` page  
 - Insert this page *after* the `147 guidance` page and *before* the `Check your answers` page.  Update the routing and middleware appropriately. 
@@ -48,22 +42,16 @@ Use the provided screenshots as a reference for layout and content.
 - Error message:  
   > "Select how you would like to receive your confirmation, or select 'I do not want a registration confirmation'".
 
----
-
 ## Task 2: Update `Check your answers` page  
 - Add a new row to the bottom of the summary list.  
 - This should reflect the user’s input from the `receipt-preference` page.  
 - Use the content from the green post-its in the relevant screenshot, following GDS guidelines.
 
----
-
-## Session and API Integration  
+## Session and API Integration
 - Add the three new fields to session data.  
 - Update API requests (both GET and POST) to include the new fields.
 
----
-
-# VERIFICATION PHASE  
+# VERIFICATION PHASE
 - A new `receipt-preference` page has been added correctly.  
 - A new summary row appears on the `Check your answers` page.  
 - GDS design and content guidelines are followed on both pages.  
