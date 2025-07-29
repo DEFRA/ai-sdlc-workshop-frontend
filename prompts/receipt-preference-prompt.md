@@ -26,6 +26,8 @@ mobile_phone_number: {
 }
 ```
 
+**⚠️ API Implementation Note**: While the schema shows `nullable: true`, the actual API validation rejects `null` values. Only include these fields in requests when they have actual string values.
+
 # ANALYSIS PHASE
 Review the existing codebase to identify the patterns and files that need updating.  
 Use the provided screenshots as a reference for layout and content.
@@ -50,6 +52,39 @@ Use the provided screenshots as a reference for layout and content.
 ## Session and API Integration
 - Add the three new fields to session data.  
 - Update API requests (both GET and POST) to include the new fields.
+
+### API Field Inclusion Rules
+**Important**: Despite the schema showing `nullable: true`, only include receipt preference fields in the API request when they have actual values. Omit fields entirely when not applicable rather than sending `null` values.
+
+**Examples of expected API payloads:**
+```javascript
+// When user selects "Email only"
+{
+  receipt_preference: "email",
+  email_address: "user@example.com"
+  // mobile_phone_number: omitted entirely
+}
+
+// When user selects "Text message only"  
+{
+  receipt_preference: "phone",
+  mobile_phone_number: "+44 7700 123456"
+  // email_address: omitted entirely
+}
+
+// When user selects both Email and Text message
+{
+  receipt_preference: "email", // or "phone" - choose primary preference
+  email_address: "user@example.com",
+  mobile_phone_number: "+44 7700 123456"
+}
+
+// When user selects "None"
+{
+  receipt_preference: "none"
+  // both email_address and mobile_phone_number omitted entirely
+}
+```
 
 # VERIFICATION PHASE
 - A new `receipt-preference` page has been added correctly.  
