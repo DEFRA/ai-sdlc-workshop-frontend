@@ -1,3 +1,6 @@
+---
+applyTo: '**/*.js'
+---
 # API Integration Standards
 
 ## HTTP Client Standards

@@ -1,0 +1,212 @@
+---
+applyTo: '**/*.njk'
+---
+# Nunjucks Template Standards
+
+## Template Structure
+
+1. Use layout templates for consistent page structure
+2. Break down complex templates into smaller, reusable components
+3. Use includes for common elements
+4. Follow a consistent template hierarchy
+
+## Template Organization
+
+```
+src/views/
+├── layouts/
+│   └── main.njk
+├── components/
+│   └── common/
+├── pages/
+│   └── [page].njk
+└── macros/
+    └── [component].njk
+```
+
+## Best Practices
+
+### General Guidelines
+1. Use GOV.UK Frontend components and macros
+2. Keep templates DRY (Don't Repeat Yourself)
+3. Use meaningful variable names in templates
+4. Implement proper error handling in templates
+5. Use template inheritance effectively
+6. Keep business logic out of templates
+
+### Syntax and Logic
+7. NEVER embed Nunjucks template logic inside HTML strings - this causes syntax errors
+8. DO NOT use JavaScript arrow functions or other ES6 features in Nunjucks templates
+9. Keep template logic minimal - complex data manipulation should happen in route handlers
+10. Use standard Nunjucks filters instead of complex chaining
+
+### Nunjucks vs JavaScript Operators
+- Use `==` not `===` for equality checks in Nunjucks
+- Use `and`/`or` not `&&`/`||` for logical operations
+- Avoid ternary expressions in Nunjucks templates (use `{% if %}` blocks instead)
+- When in doubt, move logic to route handlers and keep templates simple
+
+### Data Formatting Rule
+ALWAYS prepare display values in route handlers before sending to templates. 
+If you need conditionals to determine what to display:
+- Bad: Complex conditionals in the template
+- Good: Format in the route handler, send simple display values to the template
+
+Example:
+```javascript
+// BAD: Complex logic in template
+// In template: {{ user.type == "admin" and user.permissions ? "Administrator" : "User" }}
+
+// GOOD: Logic in route handler
+// In route handler:
+if (user.type === 'admin' && user.permissions) {
+  user.displayRole = 'Administrator';
+} else {
+  user.displayRole = 'User';
+}
+// In template: {{ user.displayRole }}
+```
+
+### Component Handling
+11. Format data for components in the Express route handlers, not in templates
+12. Use the `{% set %}...{% endset %}` pattern for complex HTML sections
+13. Always use GOV.UK Frontend macros for form inputs, even in conditional reveals
+
+## Conditional Content Patterns
+
+1. For complex conditional logic, use the `{% set %}` block pattern:
+
+```njk
+{% set conditionalContent %}
+  {% if condition %}
+    {{ govukComponent({ ... }) }}
+  {% else %}
+    {{ govukOtherComponent({ ... }) }}
+  {% endif %}
+{% endset %}
+```
+
+2. For conditional reveals in radio or checkbox components:
+
+```njk
+{% set otherHtml %}
+  {{ govukInput({
+    id: "other-field",
+    name: "other-field",
+    label: {
+      text: "Please specify"
+    },
+    value: formData.otherField,
+    errorMessage: errors.otherField
+  }) }}
+{% endset %}
+
+{{ govukRadios({
+  items: [
+    { text: "Option 1", value: "option-1" },
+    { text: "Option 2", value: "option-2" },
+    {
+      text: "Other",
+      value: "other",
+      conditional: {
+        html: otherHtml
+      }
+    }
+  ]
+}) }}
+```
+
+## Common Errors to Avoid
+
+1. Mixing string concatenation with Nunjucks expressions (e.g., `'<div>' + {% if condition %}...{% endif %} + '</div>'`)
+2. Using JavaScript logical operators instead of Nunjucks syntax (e.g., using `&&` or `||` instead of `and` or `or`)
+3. Using complex inline expressions when a `{% set %}` block would be clearer
+4. Manually constructing HTML for components instead of using GOV.UK Frontend macros
+
+## Common Pitfalls
+
+### Mixing JavaScript and Nunjucks syntax
+BAD:
+```njk
+{{ user.type === 'admin' and user.permissions ? 'Administrator' : 'User' }}
+```
+
+GOOD (in route handler):
+```javascript
+// In route handler
+if (user.type === 'admin' && user.permissions) {
+  user.displayRole = 'Administrator';
+} else {
+  user.displayRole = 'User';
+}
+```
+
+GOOD (in template):
+```njk
+{{ user.displayRole }}
+```
+
+### Handling conditional display in summary lists or tables
+BAD:
+```njk
+{{ govukSummaryList({
+  rows: [
+    {
+      key: { text: "Role" },
+      value: { 
+        text: user.type == "admin" and user.permissions ? "Administrator" : "User"
+      }
+    }
+  ]
+}) }}
+```
+
+GOOD:
+```javascript
+// In route handler
+const userData = {...user};
+if (userData.type === 'admin' && userData.permissions) {
+  userData.roleDisplay = 'Administrator';
+} else {
+  userData.roleDisplay = 'User';
+}
+```
+
+```njk
+{{ govukSummaryList({
+  rows: [
+    {
+      key: { text: "Role" },
+      value: { text: user.roleDisplay }
+    }
+  ]
+}) }}
+```
+
+## Example Template Structure
+
+```njk
+{% extends "layouts/main.njk" %}
+
+{% block content %}
+  {% from "govuk/components/header/macro.njk" import govukHeader %}
+  
+  {{ govukHeader({
+    serviceName: "Service Name",
+    serviceUrl: "/"
+  }) }}
+
+  <div class="govuk-width-container">
+    {% block main %}
+      <!-- Page content here -->
+    {% endblock %}
+  </div>
+{% endblock %}
+```
+
+## Accessibility
+
+1. Use semantic HTML elements
+2. Include proper ARIA attributes
+3. Ensure proper heading hierarchy
+4. Maintain GOV.UK accessibility standards

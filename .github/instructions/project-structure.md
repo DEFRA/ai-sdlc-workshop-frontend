@@ -1,3 +1,6 @@
+---
+applyTo: '**/*.js'
+---
 # Project Structure Standards
 
 This project follows a standard Express.js application structure with GOV.UK Frontend integration:
@@ -10,7 +13,6 @@ This project follows a standard Express.js application structure with GOV.UK Fro
   - `public/` - Static assets (CSS, JavaScript, images)
 
 ## File Organization Rules
-
 1. All new routes should be added to the `src/routes/` directory
 2. All new views should be added to the `src/views/` directory
 3. All static assets should be placed in the `src/public/` directory
@@ -18,7 +20,6 @@ This project follows a standard Express.js application structure with GOV.UK Fro
 5. Use the logger from `logger.js` for all logging needs
 
 ## Naming Conventions
-
 - Route files: `[feature].js`
 - View files: `[feature].njk`
 - Static assets: Use kebab-case for filenames

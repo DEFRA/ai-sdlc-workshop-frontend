@@ -1,14 +1,15 @@
+---
+applyTo: '**/*.js'
+---
 # Express.js Route Standards
 
 ## Route Organization
-
 1. Each route file should handle a specific feature or resource
 2. Use the Express Router for all route definitions
 3. Keep route handlers focused and single-responsibility
 4. Use middleware for cross-cutting concerns
 
 ## Route Handler Structure
-
 ```javascript
 const express = require('express');
 const router = express.Router();
@@ -29,7 +30,6 @@ module.exports = router;
 ```
 
 ## Best Practices
-
 1. Always use async/await for asynchronous operations
 2. Implement proper error handling in all route handlers
 3. Use the logger for all logging needs

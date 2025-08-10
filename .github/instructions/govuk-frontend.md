@@ -1,3 +1,6 @@
+---
+applyTo: '**/*.njk'
+---
 # GOV.UK Frontend Standards
 
 This project uses GOV.UK Frontend for consistent styling and components. Follow these guidelines:
