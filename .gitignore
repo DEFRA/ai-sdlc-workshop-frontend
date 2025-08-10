@@ -19,10 +19,8 @@ build/
 .idea/
 *.swp
 *.swo
-# VS Code - ignore the directory but allow specific files
-.vscode/*
-!.vscode/settings.json
-!.vscode/rules/
+# VS Code
+.vscode/
 
 # OS files
 .DS_Store
